@@ -42,7 +42,7 @@ public class EquipmentsType implements Serializable {
 	private String description;
 	
 	@OneToMany(mappedBy = "EquipmentsType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Equipment> equipments;
+	private Equipment equipment;
 	
 	public EquipmentsType(){
 		
@@ -76,11 +76,11 @@ public class EquipmentsType implements Serializable {
 		this.description = description;
 	}
 	
-	public List<Equipment> getEquipments(){
-		return equipments;
+	public Equipment getEquipments(){
+		return equipment;
 	}
 	
-	public void setEquipment(List<Equipment> equipments){
-		this.equipments = equipments;
+	public void setEquipment(Equipment equipment){
+		this.equipment = equipment;
 	}
 }
