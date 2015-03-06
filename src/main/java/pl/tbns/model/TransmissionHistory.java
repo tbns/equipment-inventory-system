@@ -19,7 +19,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
- * @author Szymon
+ * @author Szymon Iwański
+ * @author Maciej Skowyra
  *
  */
 @Entity
