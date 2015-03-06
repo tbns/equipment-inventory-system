@@ -54,7 +54,7 @@ public class TransmissionHistory implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date rejectDate; //data odrzucenia sprzętu z magazynu
 	
-	private Boolean status;
+	private boolean status;
 	
 	@Column(name = "equipmentDescription")
 	@Size(min = 0, max = 2000)
@@ -180,7 +180,7 @@ public class TransmissionHistory implements Serializable {
 				+ ((rejectDate == null) ? 0 : rejectDate.hashCode());
 		result = prime * result
 				+ ((sourceMagazine == null) ? 0 : sourceMagazine.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + (status ? 1231 : 1237);
 		result = prime * result
 				+ ((transmisDate == null) ? 0 : transmisDate.hashCode());
 		return result;
@@ -232,10 +232,7 @@ public class TransmissionHistory implements Serializable {
 				return false;
 		} else if (!sourceMagazine.equals(other.sourceMagazine))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
 		if (transmisDate == null) {
 			if (other.transmisDate != null)

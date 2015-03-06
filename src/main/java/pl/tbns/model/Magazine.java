@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -37,6 +39,11 @@ public class Magazine implements Serializable {
 	private long id;
 	
 	@ManyToMany
+	@JoinTable(
+			name = "magazine_equipment",
+			joinColumns = {@JoinColumn(name = "magazine_id")},
+			inverseJoinColumns = {@JoinColumn(name = "equipment_id")}
+			)
 	private List<Equipment> equipment;
 	
 	@OneToMany(mappedBy = "sourceMagazine")
@@ -53,7 +60,7 @@ public class Magazine implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date closeDate;
 	
-	private Boolean status;
+	private boolean status;
 	
 	@Column(name = "magazineDescription")
 	@Size(min = 0, max = 2000)
@@ -143,7 +150,15 @@ public class Magazine implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
 				+ ((openDate == null) ? 0 : openDate.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + (status ? 1231 : 1237);
+		result = prime
+				* result
+				+ ((transmisHistFormDest == null) ? 0 : transmisHistFormDest
+						.hashCode());
+		result = prime
+				* result
+				+ ((transmisHistFromSource == null) ? 0
+						: transmisHistFromSource.hashCode());
 		return result;
 	}
 
@@ -183,13 +198,18 @@ public class Magazine implements Serializable {
 				return false;
 		} else if (!openDate.equals(other.openDate))
 			return false;
-		if (status == null) {
-			if (other.status != null)
+		if (status != other.status)
+			return false;
+		if (transmisHistFormDest == null) {
+			if (other.transmisHistFormDest != null)
 				return false;
-		} else if (!status.equals(other.status))
+		} else if (!transmisHistFormDest.equals(other.transmisHistFormDest))
+			return false;
+		if (transmisHistFromSource == null) {
+			if (other.transmisHistFromSource != null)
+				return false;
+		} else if (!transmisHistFromSource.equals(other.transmisHistFromSource))
 			return false;
 		return true;
 	}
-	
-	
 }
