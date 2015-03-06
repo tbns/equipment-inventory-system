@@ -4,6 +4,7 @@
 package pl.tbns.api.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,8 +41,8 @@ public class EquipmentsType implements Serializable {
 	@Size(min = 0, max = 2000)
 	private String description;
 	
-	@OneToMany(mappedBy = "EquipmentsType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Equipment equipment;
+	@OneToMany(mappedBy = "EquipmentsType")
+	private List<Equipment> equipment;
 	
 	public EquipmentsType(){
 		
@@ -51,35 +52,79 @@ public class EquipmentsType implements Serializable {
 		this.name = name;
 		this.description = description;
 	}
-	
-	public Long getEquipmentsTypeId(){
+
+	public long getId() {
 		return id;
 	}
-	
-	public void setEquipmentsTypeId(Long id){
+
+	public void setId(long id) {
 		this.id = id;
 	}
-	
-	public String getEquipmentsTypeName(){
+
+	public String getName() {
 		return name;
 	}
-	
-	public void setEquipmentsTypeName(String name){
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	public String getEquipmentsTypeDescription(){
+
+	public String getDescription() {
 		return description;
 	}
-	
-	public void setEquipmentsTypeDescription(String description){
+
+	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public Equipment getEquipments(){
+
+	public List<Equipment> getEquipment() {
 		return equipment;
 	}
-	
-	public void setEquipment(Equipment equipment){
+
+	public void setEquipment(List<Equipment> equipment) {
 		this.equipment = equipment;
 	}
-}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((equipment == null) ? 0 : equipment.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EquipmentsType other = (EquipmentsType) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (equipment == null) {
+			if (other.equipment != null)
+				return false;
+		} else if (!equipment.equals(other.equipment))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	}

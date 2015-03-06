@@ -34,10 +34,10 @@ public class Magazines implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "magazine_id", unique = true, nullable = false)
+	@Column(name = "magazines_id", unique = true, nullable = false)
 	private long id;
 
-	@OneToMany(mappedBy = "Magazines", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "Magazines")
 	private List<Equipment> equipments;
 	
 	//TODO: historia sprzętu - columny
@@ -126,5 +126,67 @@ public class Magazines implements Serializable{
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((closeDate == null) ? 0 : closeDate.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((equipments == null) ? 0 : equipments.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((openDate == null) ? 0 : openDate.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Magazines other = (Magazines) obj;
+		if (closeDate == null) {
+			if (other.closeDate != null)
+				return false;
+		} else if (!closeDate.equals(other.closeDate))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (equipments == null) {
+			if (other.equipments != null)
+				return false;
+		} else if (!equipments.equals(other.equipments))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (openDate == null) {
+			if (other.openDate != null)
+				return false;
+		} else if (!openDate.equals(other.openDate))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		return true;
 	}
 }

@@ -5,6 +5,8 @@ package pl.tbns.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,9 +37,9 @@ public class EquipmentsHistory implements Serializable {
 	@Column(name = "equipmentsHistory_id", unique = true, nullable = false)
 	private long id;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name = "equipment_id", nullable = false)
-	private Equipment equipment;
+	private List<Equipment> equipment;
 	
 	//TODO: historia sprzętu
 	
@@ -65,64 +67,131 @@ public class EquipmentsHistory implements Serializable {
 	public EquipmentsHistory() {
 		
 	}
-	
-	public EquipmentsHistory(Equipment equipment, Date historyDate, Date acceptDate, Date rejectDate, String status, String description) {
+
+	public EquipmentsHistory(List<Equipment> equipment, Date historyDate) {
+		super();
 		this.equipment = equipment;
-		//TODO: historia sprzętu - konstruktor
 		this.historyDate = historyDate;
-		this.acceptDate = acceptDate;
-		this.rejectDate = rejectDate;
-		this.status = status;
-		this.description = description;
 	}
-	
-	public Equipment getEquipment(){
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Equipment> getEquipment() {
 		return equipment;
 	}
-	
-	public void setEquipments(Equipment equipment) {
+
+	public void setEquipment(List<Equipment> equipment) {
 		this.equipment = equipment;
 	}
-	
-	//TODO: historia sprzętu - getery i setery
-	
+
 	public Date getHistoryDate() {
 		return historyDate;
 	}
-	
+
 	public void setHistoryDate(Date historyDate) {
 		this.historyDate = historyDate;
 	}
-	
+
 	public Date getAcceptDate() {
 		return acceptDate;
 	}
-	
+
 	public void setAcceptDate(Date acceptDate) {
 		this.acceptDate = acceptDate;
 	}
-	
+
 	public Date getRejectDate() {
 		return rejectDate;
 	}
-	
+
 	public void setRejectDate(Date rejectDate) {
 		this.rejectDate = rejectDate;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((acceptDate == null) ? 0 : acceptDate.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((equipment == null) ? 0 : equipment.hashCode());
+		result = prime * result
+				+ ((historyDate == null) ? 0 : historyDate.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((rejectDate == null) ? 0 : rejectDate.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EquipmentsHistory other = (EquipmentsHistory) obj;
+		if (acceptDate == null) {
+			if (other.acceptDate != null)
+				return false;
+		} else if (!acceptDate.equals(other.acceptDate))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (equipment == null) {
+			if (other.equipment != null)
+				return false;
+		} else if (!equipment.equals(other.equipment))
+			return false;
+		if (historyDate == null) {
+			if (other.historyDate != null)
+				return false;
+		} else if (!historyDate.equals(other.historyDate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (rejectDate == null) {
+			if (other.rejectDate != null)
+				return false;
+		} else if (!rejectDate.equals(other.rejectDate))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		return true;
+	}
+	
+	
 }
