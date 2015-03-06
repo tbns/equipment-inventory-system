@@ -30,7 +30,7 @@ public class TransmissionHistory implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "transmisHistory_id", unique = true, nullable = false)
+	@Column(name = "transmisHist_id", unique = true, nullable = false)
 	private long id;
 	
 	@ManyToOne
@@ -38,11 +38,11 @@ public class TransmissionHistory implements Serializable {
 	private Equipment equipment;
 	
 	@ManyToOne
-	@JoinColumn(name = "magazine_id")
+	@JoinColumn(name = "sourceMagazine_id")
 	private Magazine sourceMagazine; //magazyn źródłowy
 	
 	@ManyToOne
-	@JoinColumn(name = "magazine_id")
+	@JoinColumn(name = "destMagazine_id")
 	private Magazine destMagazine; //magazyn docelowy
 	
 	@Temporal(TemporalType.DATE)

@@ -5,6 +5,7 @@ package pl.tbns.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,8 +39,11 @@ public class Magazine implements Serializable {
 	@ManyToMany
 	private List<Equipment> equipment;
 	
-	@OneToMany(mappedBy = "equipment")
-	private Set<TransmissionHistory> transmisHistory;
+	@OneToMany(mappedBy = "sourceMagazine")
+	private Set<TransmissionHistory> transmisHistFromSource = new HashSet<TransmissionHistory>();
+	
+	@OneToMany(mappedBy = "destMagazine")
+	private Set<TransmissionHistory> transmisHistFormDest = new HashSet<TransmissionHistory>();
 	
 	private String name;
 	
