@@ -8,6 +8,7 @@ import pl.tbns.model.EquipmentsType;
 
 /**
  * @author Szymon Iwański
+ * @author Maciej Skowyra
  *
  */
 public interface EquipmentsTypeDao extends GenericDao<EquipmentsType> {

@@ -16,6 +16,7 @@ import pl.tbns.service.EquipmentsTypeService;
 
 /**
  * @author Szymon Iwański
+ * @author Maciej Skowyra
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
