@@ -18,7 +18,7 @@ import org.springframework.util.ReflectionUtils;
  * @date Mar 2, 2015 10:32:30 PM
  * @param <T>
  */
-public class AbstarctGenerciDao<T extends Object> implements GenericDao<T> {
+public class AbstractGenericDao<T extends Object> implements GenericDao<T> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
