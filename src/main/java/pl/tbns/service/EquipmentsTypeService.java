@@ -12,8 +12,9 @@ import pl.tbns.model.EquipmentsType;
  */
 public interface EquipmentsTypeService {
 
-	public EquipmentsType getEquipmentTypeById(long id);
-	public void createEquipmentType(EquipmentsType eqipmentType);
+	public EquipmentsType getEquipmentsTypeById(Long id);
+	public void createEquipmentsType(EquipmentsType equipmentsType);
+	public void modifyEquipmentsType(EquipmentsType equipmentsType);
 	public void deleteEqiupmentTypeById(Long id);
-	public EquipmentsType findById(Long id);
+	public EquipmentsType findEquipmentsTypeById(Long id);
 }

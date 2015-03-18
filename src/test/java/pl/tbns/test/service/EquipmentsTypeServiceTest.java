@@ -35,9 +35,10 @@ public class EquipmentsTypeServiceTest extends TestCase{
 		EquipmentsType equipmentsType = new EquipmentsType();
 		equipmentsType.setName("Basic equipments type");
 		
-		equipmentsTypeService.createEquipmentType(equipmentsType);
+		equipmentsTypeService.createEquipmentsType(equipmentsType);
 		
-		Assert.assertNotNull("No equipments type added", equipmentsTypeService.findById(equipmentsType.getId()));
+		Assert.assertNotNull(
+				"No equipments type added", equipmentsTypeService.findEquipmentsTypeById(equipmentsType.getId()));
 	}
 	
 	@Test
@@ -46,9 +47,10 @@ public class EquipmentsTypeServiceTest extends TestCase{
 		EquipmentsType equipmentsType = new EquipmentsType();
 		equipmentsType.setName("Basic equipments type for delete");
 		
-		equipmentsTypeService.createEquipmentType(equipmentsType);
+		equipmentsTypeService.createEquipmentsType(equipmentsType);
 		equipmentsTypeService.deleteEqiupmentTypeById(equipmentsTypeDao.getAll().get(0).getId());
 		
-		Assert.assertNull("Error! No delete equipments type", equipmentsTypeService.findById(equipmentsType.getId()));
+		Assert.assertNull(
+				"Error! No equipments type deleted", equipmentsTypeService.findEquipmentsTypeById(equipmentsType.getId()));
 	}
 }

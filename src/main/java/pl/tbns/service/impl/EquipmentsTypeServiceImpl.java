@@ -22,22 +22,24 @@ public class EquipmentsTypeServiceImpl implements EquipmentsTypeService{
 
 	@Autowired
 	private EquipmentsTypeDao equipmentsTypeDao;
-	
-	public EquipmentsType getEquipmentTypeById(long id) {
-		return this.equipmentsTypeDao.get(id);
-	}
 
-	public void createEquipmentType(EquipmentsType eqipmentType) {
-		equipmentsTypeDao.create(eqipmentType);
+	public void createEquipmentsType(EquipmentsType eqipmentsType) {
+		equipmentsTypeDao.create(eqipmentsType);
 	}
 
 	public void deleteEqiupmentTypeById(Long id) {
 		this.equipmentsTypeDao.deleteById(id);
 	}
 
-	public EquipmentsType findById(Long id) {
+	public EquipmentsType getEquipmentsTypeById(Long id) {
 		return this.equipmentsTypeDao.get(id);
 	}
 
-	
+	public EquipmentsType findEquipmentsTypeById(Long id) {
+		return this.equipmentsTypeDao.get(id);
+	}
+
+	public void modifyEquipmentsType(EquipmentsType equipmentsType) {
+		equipmentsTypeDao.update(equipmentsType);
+	}
 }
