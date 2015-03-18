@@ -3,8 +3,6 @@
  */
 package pl.tbns.test.service;
 
-import java.util.List;
-
 import org.aspectj.lang.annotation.Before;
 import org.junit.Assert;
 import org.junit.Test;
