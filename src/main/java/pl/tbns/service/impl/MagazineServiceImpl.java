@@ -31,7 +31,7 @@ public class MagazineServiceImpl implements MagazineService {
 	}
 
 	public void modifyMagazine(Magazine magazine) {
-		magazineDao.update(magazine);
+		this.magazineDao.update(magazine);
 	}
 
 	public void deleteMagazineById(Long id) {

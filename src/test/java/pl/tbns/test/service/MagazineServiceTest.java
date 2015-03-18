@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.tbns.dao.MagazineDao;
+import pl.tbns.model.EquipmentsType;
 import pl.tbns.model.Magazine;
 import pl.tbns.service.MagazineService;
 import junit.framework.TestCase;
@@ -44,9 +45,9 @@ public class MagazineServiceTest extends TestCase{
 	
 	@Test
 	@Transactional
-	public void testDeleteEquipmentsType() {
+	public void testDeleteMagazine() {
 		Magazine magazine = new Magazine();
-		magazine.setName("Simple magazine");
+		magazine.setName("Basic equipments type for delete");
 		
 		magazineService.createMagazine(magazine);
 		magazineService.deleteMagazineById(magazineDao.getAll().get(0).getId());

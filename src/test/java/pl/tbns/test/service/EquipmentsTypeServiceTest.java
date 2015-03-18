@@ -48,7 +48,7 @@ public class EquipmentsTypeServiceTest extends TestCase{
 		equipmentsType.setName("Basic equipments type for delete");
 		
 		equipmentsTypeService.createEquipmentsType(equipmentsType);
-		equipmentsTypeService.deleteEqiupmentTypeById(equipmentsTypeDao.getAll().get(0).getId());
+		equipmentsTypeService.deleteEqiupmentsTypeById(equipmentsTypeDao.getAll().get(0).getId());
 		
 		Assert.assertNull(
 				"Error! No equipments type deleted", equipmentsTypeService.findEquipmentsTypeById(equipmentsType.getId()));

@@ -27,7 +27,7 @@ public class EquipmentsTypeServiceImpl implements EquipmentsTypeService{
 		equipmentsTypeDao.create(eqipmentsType);
 	}
 
-	public void deleteEqiupmentTypeById(Long id) {
+	public void deleteEqiupmentsTypeById(Long id) {
 		this.equipmentsTypeDao.deleteById(id);
 	}
 
@@ -40,6 +40,6 @@ public class EquipmentsTypeServiceImpl implements EquipmentsTypeService{
 	}
 
 	public void modifyEquipmentsType(EquipmentsType equipmentsType) {
-		equipmentsTypeDao.update(equipmentsType);
+		this.equipmentsTypeDao.update(equipmentsType);
 	}
 }
