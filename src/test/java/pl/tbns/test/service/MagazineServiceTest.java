@@ -47,7 +47,7 @@ public class MagazineServiceTest extends TestCase{
 	@Transactional
 	public void testDeleteMagazine() {
 		Magazine magazine = new Magazine();
-		magazine.setName("Basic equipments type for delete");
+		magazine.setName("Simple magazine for delete");
 		
 		magazineService.createMagazine(magazine);
 		magazineService.deleteMagazineById(magazineDao.getAll().get(0).getId());
