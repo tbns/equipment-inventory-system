@@ -12,7 +12,8 @@ import pl.tbns.model.TransmissionHistory;
 public interface TransmissionHistoryService {
 
 	public TransmissionHistory getTransmissionHistoryById(Long id);
-	public void createTransmissionHistory(TransmissionHistory transmissionHistory);
+	public void createTransmissionHistory(
+			TransmissionHistory transmissionHistory, Long equipmentId, Long sourceMagazineId, Long destMagazineId);
 	public void modifyTransmissionHistory(
 			TransmissionHistory transmissionHistory, Long equipmentId, Long sourceMagazineId, Long destMagazineId);
 	public void deleteTransmissionHistoryById(Long id);
