@@ -4,15 +4,15 @@
 package pl.tbns.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -32,7 +32,7 @@ public class EquipmentsType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "equipmentsType_id", unique = true, nullable = false)
+	@Column(name = "equipmentsType_id", nullable = false)
 	private long id;
 
 	@Column(name = "equipmentsTypeName")
@@ -43,13 +43,8 @@ public class EquipmentsType implements Serializable {
 	@Size(min = 0, max = 2000)
 	private String description;
 
-	@ManyToMany
-	@JoinTable(
-			name = "equipmentsType_equipment",
-			joinColumns = {@JoinColumn(name = "equipmentsType_id")},
-			inverseJoinColumns = {@JoinColumn(name = "equipment_id")}
-			)
-	private List<Equipment> equipment;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "equipmentsType")
+	private List<Equipment> equipment = new ArrayList<Equipment>(0);
 
 	public EquipmentsType() {
 		

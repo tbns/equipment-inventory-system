@@ -3,6 +3,7 @@
  */
 package pl.tbns.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,28 +33,27 @@ public class EquipmentServiceImpl implements EquipmentService {
 		return this.equipmentDao.get(id);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public void createEquipment(Equipment equipment, Long equipmentsTypeId) {
-		if(equipmentsTypeId != null) {
-			equipmentDao.create(equipment);
-		}
-		else {
-			EquipmentsType equipmentsType = new EquipmentsType();
-			equipment.setEquipmentsType((List<EquipmentsType>) equipmentsType);
-			equipmentDao.create(equipment);
-		}
+		
+		EquipmentsType equipmentsType = equipmentsTypeDao.get(equipmentsTypeId);
+		List<EquipmentsType> newEquipmentsTypes = new ArrayList<EquipmentsType>();
+		
+		newEquipmentsTypes.add(equipmentsType);
+		equipment.setEquipmentsType(newEquipmentsTypes);
+		equipmentDao.create(equipment);
+		
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public void modifyEquipment(Equipment equipment, Long equipmentsTypeId) {
-		if(equipmentsTypeId != null) {
-			this.equipmentDao.update(equipment);
-		}
-		else {
-			EquipmentsType equipmentsType = new EquipmentsType();
-			equipment.setEquipmentsType((List<EquipmentsType>) equipmentsType);
-			this.equipmentDao.update(equipment);
-		}
+		
+		EquipmentsType equipmentsType = equipmentsTypeDao.get(equipmentsTypeId);
+		List<EquipmentsType> newEquipmentsTypes = new ArrayList<EquipmentsType>();
+		
+		newEquipmentsTypes.add(equipmentsType);
+		equipment.setEquipmentsType(newEquipmentsTypes);
+		equipmentDao.update(equipment);
 	}
 
 	public void deleteEquipmentById(Long id) {

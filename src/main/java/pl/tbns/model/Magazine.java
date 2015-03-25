@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pl.tbns.model;
 
 import java.io.Serializable;

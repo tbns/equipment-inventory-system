@@ -1,10 +1,9 @@
-/**
- * 
- */
+
 package pl.tbns.test.service;
 
-import org.aspectj.lang.annotation.Before;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,10 @@ import junit.framework.TestCase;
 
 /**
  * @author Szymon Iwański
+ * @author Maciej Skowyra
  *
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring/application-context-test.xml", "/spring/hibernate-context-test.xml" })
 public class EquipmentServiceTest extends TestCase{
@@ -35,12 +36,17 @@ public class EquipmentServiceTest extends TestCase{
 	@Autowired
 	private EquipmentsTypeDao equipmentsTypeDao;
 	
-	@Before(value = "")
+	@Before
 	@Transactional
-	public void setup() {
-		EquipmentsType equipmentsType = new EquipmentsType();
-		equipmentsType.setName("Basic equipments type for equipments test");
-		equipmentsTypeDao.create(equipmentsType);
+	public void setUp() {
+		EquipmentsType equipmentsType1 = new EquipmentsType();
+		equipmentsType1.setName("Basic equipments 1 type for equipments test");
+		equipmentsTypeDao.create(equipmentsType1);
+		
+		EquipmentsType equipmentsType2 = new EquipmentsType();
+		equipmentsType2.setName("Basic equipments 2 type for equipments test");
+		equipmentsTypeDao.create(equipmentsType2);
+		
 	}
 	
 	@Test
@@ -54,9 +60,25 @@ public class EquipmentServiceTest extends TestCase{
 		
 		equipmentService.createEquipment(equipment, equipmentsTypeId);
 		
-		Assert.assertNotNull("No equipment added", equipmentService.findEquipmentById(equipment.getId()));
+		Assert.assertNotNull("No equipment created", equipmentService.findEquipmentById(equipment.getId()));
 	}
 	
+	
+	@Test
+	@Transactional
+//	@Rollback(false)
+	public void testUpdateEquipment() {
+		Long equipmentsTypeId = equipmentsTypeDao.getAll().get(1).getId();
+		
+		Equipment equipment = new Equipment();
+		equipment.setName("Some equipment");
+		
+		equipmentService.modifyEquipment(equipment, equipmentsTypeId);
+		
+		Assert.assertNotNull("No equipment created", equipmentService.findEquipmentById(equipment.getId()));
+	}
+	
+//	@Ignore
 	@Test
 	@Transactional
 	public void testDeleteEquipment() {

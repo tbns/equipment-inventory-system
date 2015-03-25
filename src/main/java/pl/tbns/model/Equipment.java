@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package pl.tbns.model;
 
 import java.io.Serializable;
@@ -8,17 +6,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+
 
 /**
  * @author Szymon Iwański
@@ -52,7 +55,12 @@ public class Equipment implements Serializable {
 	@Size(min = 0, max = 2000)
 	private String description;
 	
-	@ManyToMany(mappedBy = "equipment")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "equipmentsType_equipment",
+			joinColumns = {@JoinColumn(name = "equipmentsType_id")},
+			inverseJoinColumns = {@JoinColumn(name = "equipment_id")}
+			)
 	private List<EquipmentsType> equipmentsType;
 	
 	@ManyToMany(mappedBy = "equipment")
@@ -126,6 +134,30 @@ public class Equipment implements Serializable {
 		this.equipmentsType = equipmentsType;
 	}
 
+	public List<Magazine> getMagazine() {
+		return magazine;
+	}
+
+	public void setMagazine(List<Magazine> magazine) {
+		this.magazine = magazine;
+	}
+
+	public Date getDateCreated() {
+		return DateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		DateCreated = dateCreated;
+	}
+
+	public Set<TransmissionHistory> getTraansmisHistory() {
+		return traansmisHistory;
+	}
+
+	public void setTraansmisHistory(Set<TransmissionHistory> traansmisHistory) {
+		this.traansmisHistory = traansmisHistory;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,6 +214,8 @@ public class Equipment implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 	
 }
