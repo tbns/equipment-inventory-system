@@ -55,7 +55,7 @@ public class TransmissionHistory implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date rejectDate; //data odrzucenia sprzętu z magazynu
 	
-	private boolean status;
+	private boolean status = false;
 	
 	@Column(name = "equipmentDescription")
 	@Size(min = 0, max = 2000)
