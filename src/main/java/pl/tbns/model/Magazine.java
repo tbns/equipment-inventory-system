@@ -8,11 +8,10 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,12 +35,8 @@ public class Magazine implements Serializable {
 	@Column(name = "magazine_id", unique = true, nullable = false)
 	private long id;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "magazine_equipment",
-			joinColumns = {@JoinColumn(name = "magazine_id")},
-			inverseJoinColumns = {@JoinColumn(name = "equipment_id")}
-			)
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "magazine")
 	private List<Equipment> equipment;
 	
 	@OneToMany(mappedBy = "sourceMagazine")
@@ -58,7 +53,7 @@ public class Magazine implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date closeDate;
 	
-	private boolean status;
+	private boolean status = true;
 	
 	@Column(name = "magazineDescription")
 	@Size(min = 0, max = 2000)

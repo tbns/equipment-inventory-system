@@ -13,8 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -63,7 +63,12 @@ public class Equipment implements Serializable {
 			)
 	private List<EquipmentsType> equipmentsType;
 	
-	@ManyToMany(mappedBy = "equipment")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "magazine_equipment",
+			joinColumns = {@JoinColumn(name = "magazine_id")},
+			inverseJoinColumns = {@JoinColumn(name = "equipment_id")}
+			)
 	private List<Magazine> magazine;
 	
 	@Temporal(TemporalType.TIMESTAMP)
