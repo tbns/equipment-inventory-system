@@ -37,6 +37,12 @@ public class TransmissionHistoryServiceImpl implements
 		return this.transmissionHistoryDao.get(id);
 	}
 
+	/*
+	 * Trzeba rozkminić jak pobrać id magazynu bierzącego bezpośrednio z equipment 
+	 * a nie podawać go w parametrze.
+	 * Problem jest że Magazyn w Equipment jest typu List<Magazine>
+	 * a my musimy podać w sourceMagazine typu Magazine
+	 */
 	public void createTransmissionHistory(
 			TransmissionHistory transmissionHistory, Long equipmentId,
 			Long sourceMagazineId, Long destMagazineId) {
@@ -59,8 +65,10 @@ public class TransmissionHistoryServiceImpl implements
 			if(status == true){
 					Long destMagazine = transmissionHistory.getDestMagazine().getId();
 					Equipment equipment = transmissionHistory.getEquipment();
-							
+					
+					//update id magazine in equipment after change status on true in history 
 					equipmentService.modifyForHistoryTransmissionEquipment(equipment, destMagazine);
+					//update status in history 
 					transmissionHistoryDao.update(transmissionHistory);
 			}
 		

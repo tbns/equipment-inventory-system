@@ -71,16 +71,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 		equipmentDao.update(equipment);
 	}
-
-	public void deleteEquipmentById(Long id) {
-		this.equipmentDao.deleteById(id);
-	}
-
-	public Equipment findEquipmentById(Long id) {
-		return this.equipmentDao.get(id);
-	}
-
-	@Override
+	
 	public void modifyForHistoryTransmissionEquipment(Equipment equipment, Long magazineId) {
 		
 		Magazine magazine = magazineDao.get(magazineId);
@@ -91,5 +82,14 @@ public class EquipmentServiceImpl implements EquipmentService {
 		
 		equipmentDao.update(equipment);
 	}
+
+	public void deleteEquipmentById(Long id) {
+		this.equipmentDao.deleteById(id);
+	}
+
+	public Equipment findEquipmentById(Long id) {
+		return this.equipmentDao.get(id);
+	}
+	
 
 }
