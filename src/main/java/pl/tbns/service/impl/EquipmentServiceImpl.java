@@ -60,8 +60,26 @@ public class EquipmentServiceImpl implements EquipmentService {
 		EquipmentsType equipmentsType = equipmentsTypeDao.get(equipmentsTypeId);
 		List<EquipmentsType> newEquipmentsTypes = new ArrayList<EquipmentsType>();
 
+		Magazine magazine = magazineDao.get(magazineId);
+		List<Magazine> newMagazine = new ArrayList<Magazine>();
+
+		newMagazine.add(magazine);
 		newEquipmentsTypes.add(equipmentsType);
+
+		equipment.setMagazine(newMagazine);
 		equipment.setEquipmentsType(newEquipmentsTypes);
+
+		equipmentDao.update(equipment);
+	}
+	
+	public void modifyForHistoryTransmissionEquipment(Equipment equipment, Long magazineId) {
+		
+		Magazine magazine = magazineDao.get(magazineId);
+		List<Magazine> newMagazine = new ArrayList<Magazine>();
+
+		newMagazine.add(magazine);
+		equipment.setMagazine(newMagazine);
+		
 		equipmentDao.update(equipment);
 	}
 
@@ -72,5 +90,6 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public Equipment findEquipmentById(Long id) {
 		return this.equipmentDao.get(id);
 	}
+	
 
 }
