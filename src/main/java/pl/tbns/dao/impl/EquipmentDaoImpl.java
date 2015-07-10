@@ -9,8 +9,9 @@ import pl.tbns.dao.EquipmentDao;
 import pl.tbns.model.Equipment;
 
 /**
+ * @author Maciej Skowyra
  * @author Szymon Iwański
- *
+ * @date May 8, 2015 1:45:49 PM
  */
 @Repository("equipmentDao")
 public class EquipmentDaoImpl extends AbstractGenericDao<Equipment> implements EquipmentDao {
