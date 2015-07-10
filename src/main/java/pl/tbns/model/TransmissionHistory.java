@@ -1,6 +1,3 @@
-/**
- * 
- */
 package pl.tbns.model;
 
 import java.io.Serializable;
@@ -45,6 +42,14 @@ public class TransmissionHistory implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "destMagazine_id")
 	private Magazine destMagazine; //magazyn docelowy
+	
+	@ManyToOne
+	@JoinColumn(name = "sourceUser_id")
+	private User sourceUser; //urzytkownik źródłowy
+	
+	@ManyToOne
+	@JoinColumn(name = "destUser_id")
+	private User destUser; //urzytkownik docelowy
 	
 	@Temporal(TemporalType.DATE)
 	private Date transmisDate; //data wydania dyspozycji do przekazania sprzetu
@@ -162,84 +167,21 @@ public class TransmissionHistory implements Serializable {
 		DateCreated = dateCreated;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((DateCreated == null) ? 0 : DateCreated.hashCode());
-		result = prime * result
-				+ ((acceptDate == null) ? 0 : acceptDate.hashCode());
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result
-				+ ((destMagazine == null) ? 0 : destMagazine.hashCode());
-		result = prime * result
-				+ ((equipment == null) ? 0 : equipment.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result
-				+ ((rejectDate == null) ? 0 : rejectDate.hashCode());
-		result = prime * result
-				+ ((sourceMagazine == null) ? 0 : sourceMagazine.hashCode());
-		result = prime * result + (status ? 1231 : 1237);
-		result = prime * result
-				+ ((transmisDate == null) ? 0 : transmisDate.hashCode());
-		return result;
+	public User getSourceUser() {
+		return sourceUser;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TransmissionHistory other = (TransmissionHistory) obj;
-		if (DateCreated == null) {
-			if (other.DateCreated != null)
-				return false;
-		} else if (!DateCreated.equals(other.DateCreated))
-			return false;
-		if (acceptDate == null) {
-			if (other.acceptDate != null)
-				return false;
-		} else if (!acceptDate.equals(other.acceptDate))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (destMagazine == null) {
-			if (other.destMagazine != null)
-				return false;
-		} else if (!destMagazine.equals(other.destMagazine))
-			return false;
-		if (equipment == null) {
-			if (other.equipment != null)
-				return false;
-		} else if (!equipment.equals(other.equipment))
-			return false;
-		if (id != other.id)
-			return false;
-		if (rejectDate == null) {
-			if (other.rejectDate != null)
-				return false;
-		} else if (!rejectDate.equals(other.rejectDate))
-			return false;
-		if (sourceMagazine == null) {
-			if (other.sourceMagazine != null)
-				return false;
-		} else if (!sourceMagazine.equals(other.sourceMagazine))
-			return false;
-		if (status != other.status)
-			return false;
-		if (transmisDate == null) {
-			if (other.transmisDate != null)
-				return false;
-		} else if (!transmisDate.equals(other.transmisDate))
-			return false;
-		return true;
+	public void setSourceUser(User sourceUser) {
+		this.sourceUser = sourceUser;
 	}
+
+	public User getDestUser() {
+		return destUser;
+	}
+
+	public void setDestUser(User destUser) {
+		this.destUser = destUser;
+	}
+
+	
 }

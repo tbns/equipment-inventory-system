@@ -1,16 +1,18 @@
-/**
- * 
- */
 package pl.tbns.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,11 +24,16 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable{
 
-	
+	private static final long serialVersionUID = 1565658206459245534L;
+
 	@Id
-	@Column(name = "login", unique = true, nullable = false)	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id", unique = true, nullable = false)
+	private long id;
+
+	@Column(unique = true)
 	private String login;
 	private String password;
 	private String first_name;
@@ -35,13 +42,20 @@ public class User {
 	private String email;
 	private long mobilePhone;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<UserRole> userRole = new HashSet<UserRole>(0);
+	@ManyToMany
+	@JoinTable
+	private List<UserRole> userRole;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date DateCreate;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date DateUpdate;
+	
+	@OneToMany(mappedBy = "sourceUser")
+	private Set<TransmissionHistory> transmisHistFromSource = new HashSet<TransmissionHistory>();
+	
+	@OneToMany(mappedBy = "destUser")
+	private Set<TransmissionHistory> transmisHistFormDest = new HashSet<TransmissionHistory>();	
 	
 	public User() {
 	}
@@ -52,11 +66,19 @@ public class User {
 		this.status = status;
 	}
 
-	public User(String login, String password, boolean status,Set<UserRole> userRole) {
+	public User(String login, String password, boolean status,List<UserRole> userRole) {
 		this.login = login;
 		this.password = password;
 		this.status = status;
 		this.userRole = userRole;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getLogin() {
@@ -115,11 +137,11 @@ public class User {
 		this.mobilePhone = mobilePhone;
 	}
 
-	public Set<UserRole> getUserRole() {
+	public List<UserRole> getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(Set<UserRole> userRole) {
+	public void setUserRole(List<UserRole> userRole) {
 		this.userRole = userRole;
 	}
 
@@ -138,8 +160,126 @@ public class User {
 	public void setDateUpdate(Date dateUpdate) {
 		DateUpdate = dateUpdate;
 	}
+
+	public Set<TransmissionHistory> getTransmisHistFromSource() {
+		return transmisHistFromSource;
+	}
+
+	public void setTransmisHistFromSource(
+			Set<TransmissionHistory> transmisHistFromSource) {
+		this.transmisHistFromSource = transmisHistFromSource;
+	}
+
+	public Set<TransmissionHistory> getTransmisHistFormDest() {
+		return transmisHistFormDest;
+	}
+
+	public void setTransmisHistFormDest(
+			Set<TransmissionHistory> transmisHistFormDest) {
+		this.transmisHistFormDest = transmisHistFormDest;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((DateCreate == null) ? 0 : DateCreate.hashCode());
+		result = prime * result
+				+ ((DateUpdate == null) ? 0 : DateUpdate.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result
+				+ ((first_name == null) ? 0 : first_name.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((last_name == null) ? 0 : last_name.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + (int) (mobilePhone ^ (mobilePhone >>> 32));
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + (status ? 1231 : 1237);
+		result = prime
+				* result
+				+ ((transmisHistFormDest == null) ? 0 : transmisHistFormDest
+						.hashCode());
+		result = prime
+				* result
+				+ ((transmisHistFromSource == null) ? 0
+						: transmisHistFromSource.hashCode());
+		result = prime * result
+				+ ((userRole == null) ? 0 : userRole.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (DateCreate == null) {
+			if (other.DateCreate != null)
+				return false;
+		} else if (!DateCreate.equals(other.DateCreate))
+			return false;
+		if (DateUpdate == null) {
+			if (other.DateUpdate != null)
+				return false;
+		} else if (!DateUpdate.equals(other.DateUpdate))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (first_name == null) {
+			if (other.first_name != null)
+				return false;
+		} else if (!first_name.equals(other.first_name))
+			return false;
+		if (id != other.id)
+			return false;
+		if (last_name == null) {
+			if (other.last_name != null)
+				return false;
+		} else if (!last_name.equals(other.last_name))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (mobilePhone != other.mobilePhone)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (status != other.status)
+			return false;
+		if (transmisHistFormDest == null) {
+			if (other.transmisHistFormDest != null)
+				return false;
+		} else if (!transmisHistFormDest.equals(other.transmisHistFormDest))
+			return false;
+		if (transmisHistFromSource == null) {
+			if (other.transmisHistFromSource != null)
+				return false;
+		} else if (!transmisHistFromSource.equals(other.transmisHistFromSource))
+			return false;
+		if (userRole == null) {
+			if (other.userRole != null)
+				return false;
+		} else if (!userRole.equals(other.userRole))
+			return false;
+		return true;
+	}
+
 	
-	
-	
+		
 	
 }

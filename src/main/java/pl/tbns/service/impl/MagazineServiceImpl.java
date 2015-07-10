@@ -12,6 +12,7 @@ import pl.tbns.service.MagazineService;
  * @author Szymon Iwański
  * @author Maciej Skowyra
  */
+
 @Service
 @Transactional
 public class MagazineServiceImpl implements MagazineService {

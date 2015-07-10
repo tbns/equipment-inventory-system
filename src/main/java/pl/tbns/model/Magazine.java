@@ -35,7 +35,6 @@ public class Magazine implements Serializable {
 	@Column(name = "magazine_id", unique = true, nullable = false)
 	private long id;
 	
-	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "magazine")
 	private List<Equipment> equipment;
 	
@@ -129,6 +128,24 @@ public class Magazine implements Serializable {
 		this.description = description;
 	}
 
+	public Set<TransmissionHistory> getTransmisHistFromSource() {
+		return transmisHistFromSource;
+	}
+
+	public void setTransmisHistFromSource(
+			Set<TransmissionHistory> transmisHistFromSource) {
+		this.transmisHistFromSource = transmisHistFromSource;
+	}
+
+	public Set<TransmissionHistory> getTransmisHistFormDest() {
+		return transmisHistFormDest;
+	}
+
+	public void setTransmisHistFormDest(
+			Set<TransmissionHistory> transmisHistFormDest) {
+		this.transmisHistFormDest = transmisHistFormDest;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -205,4 +222,6 @@ public class Magazine implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 }

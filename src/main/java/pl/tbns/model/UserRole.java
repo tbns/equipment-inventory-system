@@ -1,15 +1,16 @@
 package pl.tbns.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+
 
 /**
  * @author Maciej Skowyra
@@ -17,46 +18,37 @@ import javax.persistence.UniqueConstraint;
  */
 
 @Entity
-@Table(name = "user_role", 
-			uniqueConstraints = @UniqueConstraint(
-					columnNames = {"role", "login" }))
-public class UserRole {
+@Table(name = "roles")
+public class UserRole implements Serializable{
 
+	private static final long serialVersionUID = -6477317399322633507L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "userRole_id", unique = true, nullable = false)
 	private long id;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "login", nullable = false)
-	private User user;
-	@Column(name = "role", nullable = false, length = 45)
+	@ManyToMany(mappedBy = "userRole")
+	private List<User> users;
+	@Column(name = "roles", nullable = false, length = 45)
 	private String role;
-	
-		
-	public UserRole() {
-		}
-		
-	public UserRole(User user, String role) {
-		this.user = user;
-		this.role = role;
+
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public long getId() {
-		return id;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+
 	public String getRole() {
 		return role;
 	}
+
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }
